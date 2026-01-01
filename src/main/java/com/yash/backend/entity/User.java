@@ -2,6 +2,8 @@ package com.yash.backend.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
@@ -11,7 +13,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Name is mandatory")
     private String name;
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "email is mandatory")
     private String email;
 
     public Long getId() {
