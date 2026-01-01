@@ -5,6 +5,7 @@ import com.yash.backend.entity.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,5 +29,16 @@ public class UserController {
         return userService.getAllUser();
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable long id){
+        return userService.getUserById(id)
+                .orElseThrow(()->new RuntimeException("User Not Found By Given Id"));
+
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+    }
 
 }
