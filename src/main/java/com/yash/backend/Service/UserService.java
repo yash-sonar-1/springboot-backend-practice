@@ -2,6 +2,7 @@ package com.yash.backend.Service;
 
 import com.yash.backend.DAO.UserRepo;
 import com.yash.backend.entity.User;
+import com.yash.backend.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +25,9 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public Optional<User> getUserById(Long id){
-        return userRepo.findById(id);
+    public User getUserById(Long id){
+        return userRepo.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("user not found with id "+ id));
     }
 
     public void deleteUser(Long id){
